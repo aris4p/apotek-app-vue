@@ -1,15 +1,34 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import Header from './components/Header.vue'
+import { RouterView, useRoute } from 'vue-router'
+import { computed } from 'vue'
 import Footer from './components/Footer.vue'
+import Sidebar from './components/Sidebar.vue'
+import Header from './components/Header.vue'
+
+const route = useRoute()
+
+// Daftar route yang tidak menggunakan layout utama
+const routesWithoutLayout = ['login']
+
+// Computed untuk mengecek apakah route saat ini perlu layout
+const showMainLayout = computed(() => {
+  return !routesWithoutLayout.includes(route.name as string)
+})
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen">
+  <!-- Layout untuk halaman yang membutuhkan sidebar, header, footer -->
+  <div v-if="showMainLayout" class="main-panel">
+    <Sidebar />
     <Header />
-    <main class="flex-1 mx-auto max-w-7xl px-8 py-20">
+    <main class="container">
       <RouterView />
     </main>
     <Footer />
+  </div>
+  
+  <!-- Layout untuk halaman login (tanpa sidebar, header, footer) -->
+  <div v-else>
+    <RouterView />
   </div>
 </template>

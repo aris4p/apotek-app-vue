@@ -1,9 +1,18 @@
 <template>
-  <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
-    <aside>
-      <p>Copyright © {{ currentYear }} - All rights reserved by ACME Industries Ltd</p>
-    </aside>
-  </footer>
+  <footer class="footer">
+          <div class="container-fluid d-flex justify-content-between">
+            <nav class="pull-left">
+             
+            </nav>
+            <div class="copyright">
+              {{currentYear}}, made with <i class="fa fa-heart heart text-danger"></i> by
+              <a href="http://www.themekita.com">ThemeKita</a>
+            </div>
+            <div>
+              
+            </div>
+          </div>
+        </footer>
 </template>
 
 <script setup>
