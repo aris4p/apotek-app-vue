@@ -51,9 +51,9 @@
                       </a>
                     </li>
                     <li>
-                      <a href="forms/forms.html">
-                        <span class="sub-item">Kategori</span>
-                      </a>
+                       <RouterLink to="/categories">
+                        <span class="sub-item">Categories</span>
+                        </RouterLink>
                     </li>
                   </ul>
                 </div>

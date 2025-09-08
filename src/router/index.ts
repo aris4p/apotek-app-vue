@@ -4,6 +4,7 @@ import ProdukView from '../views/ProdukView.vue'
 import TransaksiView from '../views/TransaksiView.vue'
 import LoginView from '@/views/LoginView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import CategoriesView from '@/views/CategoriesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,12 @@ const router = createRouter({
       path: '/produk',
       name: 'produk',
       component: ProdukView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: CategoriesView,
       meta: { requiresAuth: true }
     },
     {
