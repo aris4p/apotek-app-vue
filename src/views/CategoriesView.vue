@@ -41,7 +41,13 @@
                                   />
                                 </div>
                                 <div class="col-md-2 d-flex align-items-end">
-                                  <button type="submit" class="btn btn-success">Tambah</button>
+                                  <button type="submit" class="btn btn-success">
+                                  <template v-if="categorieMutation.isPending.value">
+                                   <i class="fas fa-spinner fa-spin me-2"></i>
+                                  Proses...
+                                  </template>
+                                  <template v-else>Tambah</template>
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -88,7 +94,7 @@
                       <div v-else-if="!isLoading && !error" class="text-center py-4">
                         <h5>No Categories Found</h5>
                         <p class="text-muted">No categories available at the moment.</p>
-                        <button @click="refetch" class="btn btn-primary">
+                        <button @click="refetch()" class="btn btn-primary">
                           Refresh
                         </button>
                       </div>
@@ -119,6 +125,7 @@ interface Category {
 }
 
 declare const $: any;
+declare const swal: any;
 
 
 const authStore = useAuthStore()
@@ -141,7 +148,28 @@ const categorieMutation = useMutation ({
     );
   },
   onSuccess: () => {
-    router.replace({name: "home"});
+    // Show success alert
+    swal({
+      title: "Berhasil!",
+      text: "Kategori berhasil ditambahkan",
+      icon: "success",
+      buttons: {
+        confirm: {
+          text: "OK",
+          value: true,
+          visible: true,
+          className: "btn btn-success",
+          closeModal: true
+        }
+      }
+    }).then(() => {
+      // Clear form inputs
+      nameCategorie.value = "";
+      description.value = "";
+      
+      // Refresh the data
+      refetch();
+    });
   },
   onError: (err) => {
     console.log(err);
